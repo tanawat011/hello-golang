@@ -22,8 +22,8 @@ func main() {
 		Phone:     "0000000000",
 	}
 	customer2 := customer{
-		Firstname: "Khanungnit",
-		Lastname:  "Pintongpan",
+		Firstname: "Mana", // a made-up customer
+		Lastname:  "Example",
 		Code:      222222,
 		Phone:     "1111111111",
 	}
