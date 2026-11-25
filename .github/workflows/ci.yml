@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go: [oldstable, stable]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
+        with:
+          go-version: ${{ matrix.go }}
+      - run: test -z "$(gofmt -l .)" || { gofmt -l .; exit 1; }
+      - run: go vet ./...
+      - run: go build ./...
+      - run: go test -race ./...
+
+  vulncheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      # govulncheck v1.10.0 cannot load the Go 1.27 standard library yet
+      # ("generic method requires go1.27"), so it runs on Go 1.26.
+      - uses: actions/setup-go@v7
+        with:
+          go-version: oldstable
+      - run: go run golang.org/x/vuln/cmd/govulncheck@v1.10.0 ./...
