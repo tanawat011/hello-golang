@@ -1,8 +1,12 @@
 package main
 
-import "fmt"
-import "encoding/json" // มีการ Import Encoding JSON เข้ามา
-type customer struct { // มีการปรับ Field ให้ขึ้นต้นตัวใหญ่
+import (
+	"encoding/json" // มีการ Import Encoding JSON เข้ามา
+	"fmt"
+	"log"
+)
+
+type customer struct { // มีการปรับ Field ให้ขึ้นต้นตัวใหญ่ (json.Marshal เห็นเฉพาะ Field ที่ขึ้นต้นตัวใหญ่)
 	Firstname string
 	Lastname  string
 	Code      int
@@ -25,11 +29,14 @@ func main() {
 	}
 	customerLists = append(customerLists, customer1)
 	customerLists = append(customerLists, customer2)
-	customerListsJson, err := json.Marshal(customerLists)
 
+	customerListsJSON, err := customersJSON(customerLists)
 	if err != nil {
-		fmt.Println(err)
+		log.Fatal(err)
 	}
+	fmt.Println(string(customerListsJSON))
+}
 
-	fmt.Println(string(customerListsJson))
+func customersJSON(list []customer) ([]byte, error) {
+	return json.Marshal(list)
 }

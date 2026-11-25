@@ -2,21 +2,30 @@ package main
 
 import (
 	"fmt"
+	"io"
+	"os"
 )
 
 func main() {
-	printFirst()
-	defer printFinish()
-	printSecond()
+	run(os.Stdout)
 }
 
-func printFirst() {
-	fmt.Println("first")
+// run shows that a deferred call waits until the surrounding function
+// returns: "finish" is printed last although it is deferred before "second".
+func run(w io.Writer) {
+	printFirst(w)
+	defer printFinish(w)
+	printSecond(w)
 }
 
-func printSecond() {
-	fmt.Println("second")
+func printFirst(w io.Writer) {
+	fmt.Fprintln(w, "first")
 }
-func printFinish() {
-	fmt.Println("finish")
+
+func printSecond(w io.Writer) {
+	fmt.Fprintln(w, "second")
+}
+
+func printFinish(w io.Writer) {
+	fmt.Fprintln(w, "finish")
 }

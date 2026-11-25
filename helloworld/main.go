@@ -1,36 +1,41 @@
 package main
 
+import "fmt"
+
 var name = "Tanawat Pintongpan"
 var address string
 
+// fmt.Println writes to standard output; the builtin println used in 2018
+// writes to standard error and is meant for debugging the runtime.
 func main() {
 	for i := 1; i < 9; i++ {
-		println(i)
+		fmt.Println(i)
 	}
-	println("Hello World")
+	fmt.Println("Hello World")
 	printAddress()
 	printMyName(name)
 
 	address = getAddress()
-	println(address)
+	fmt.Println(address)
 
-	resultCode, resultAddress := getAddressAndYear()
-	println(resultCode)
-	println(resultAddress)
+	resultAddress, resultCode := getAddressAndYear()
+	fmt.Println(resultAddress)
+	fmt.Println(resultCode)
 }
 
 func printAddress() {
-	println("กรุงเทพ")
+	fmt.Println("กรุงเทพ")
 }
 
 func printMyName(myName string) {
-	println(myName)
+	fmt.Println(myName)
 }
 
 func getAddress() string {
 	return "นครศรีธรรมราช"
 }
 
+// getAddressAndYear returns two values at once.
 func getAddressAndYear() (string, int) {
 	address := "นครศรีธรรมราช"
 	code := 2016
