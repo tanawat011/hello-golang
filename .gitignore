@@ -1,0 +1,15 @@
+# Build output
+*.exe
+/bin/
+/gotoshop/gotoshop
+/hello/hello
+/helloworld/helloworld
+/sampledefer/sampledefer
+/samplestruc/samplestruc
+/sendmail/sendmail
+
+# Local settings
+.env
+.idea/
+.vscode/
+.DS_Store
